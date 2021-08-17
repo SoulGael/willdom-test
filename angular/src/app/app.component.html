@@ -1,0 +1,75 @@
+<!-- Toolbar -->
+<div class="toolbar" role="banner">
+  <img
+    width="40"
+    alt="Angular Logo"
+    src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg=="
+  />
+  <span (click)="getLocal()">Local</span>
+  <span (click)="getRemote()">Remote</span>
+  <span (click)="getRemotePlus()">Remote+</span>
+    <div class="spacer"></div>
+    <span>LOGIN</span>
+    <span>SIGN UP</span>
+</div>
+
+<div class="content" role="main">
+
+  <mat-card *ngIf="showForm">
+    <form (submit)="addArticle()">
+      <div class="form-group">
+        <mat-form-field class="middle-width" appearance="fill">
+          <input matInput type="text" placeholder="Article Title" name="formTitle" [(ngModel)]="formTitle">
+        </mat-form-field>
+        <mat-form-field class="middle-width" appearance="fill">
+          <input matInput type="text" placeholder="Redirect To" name="formUrl" [(ngModel)]="formUrl">
+        </mat-form-field>
+      </div>
+
+      <div class="form-group">
+        <mat-form-field class="middle-width" appearance="fill">
+          <input matInput type="text" placeholder="Description" name="formDescription" [(ngModel)]="formDescription">
+        </mat-form-field>
+        <mat-form-field class="middle-width" appearance="fill">
+          <input matInput type="text" placeholder="Content" name="formContent" [(ngModel)]="formContent">
+        </mat-form-field>
+      </div>
+
+      <div class="form-group">
+        <mat-form-field class="full-width" appearance="fill">
+          <input matInput type="text" placeholder="Url Image" name="formImage" [(ngModel)]="formImage">
+        </mat-form-field>
+      </div>
+
+      <div class="form-group">
+        <button mat-raised-button type="submit" color="primary">Add Article</button>
+      </div>
+    </form>
+  </mat-card>
+
+  <div class="article" *ngFor="let item of dataArticles">
+    <button mat-mini-fab color="warn" aria-label="Delete" *ngIf="showForm" (click)="removeArticle(item)">
+      <mat-icon>delete</mat-icon>
+    </button>
+    <a href="{{item.url}}" target="_blank">
+      <div class="article__content">
+        <img class="article__img" src="{{item.image}}" alt={{item.title}}>
+        <div class="article__info">
+          <h3 class="article__title">
+            <span>{{item.title}}</span>
+            {{item.description}}
+          </h3>
+          <div class="article_des">
+            {{item.content}}
+          </div>
+          <div class="article_meta">
+            {{item.publishedAt}}
+          </div>
+        </div>
+      </div>
+    </a>
+  </div>
+
+  <h5 *ngIf="dataArticles.length == 0">NO DATA</h5>
+
+</div>
